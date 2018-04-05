@@ -1,12 +1,15 @@
+# jenkins-slave-agent
 # dind-jenkins-slave
 
 A Docker image which allows for running Docker in Docker (DinD). This image is meant to be used with the [Jenkins Docker plugin](https://wiki.jenkins-ci.org/display/JENKINS/Docker+Plugin). It allows for Docker containers used as Jenkins build slaves to create and publish their own Docker images in-turn.
 
-This is a mashup of "[evarga/jenkins-slave](https://registry.hub.docker.com/u/evarga/jenkins-slave/)" and "[jpetazzo/dind](https://registry.hub.docker.com/u/jpetazzo/dind/)".
+This is a mashup of "tehranian/dind-jenkins-slave", 
+ "[evarga/jenkins-slave](https://registry.hub.docker.com/u/evarga/jenkins-slave/)" and "[jpetazzo/dind](https://registry.hub.docker.com/u/jpetazzo/dind/)".
 
 ## Requirements
 
-* The container must be run with `--privileged` in order for nested-Docker to work. There is a check box to enable this for the image within the Jenkins UI.
+* The container must be run with `--privileged` in order for nested-Docker to work. 
+There is a check box to enable this for the image within the Jenkins UI.
 
 ## Instructions
 
