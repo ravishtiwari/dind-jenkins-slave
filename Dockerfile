@@ -9,6 +9,9 @@
 FROM evarga/jenkins-slave
 MAINTAINER Ravish Tiwari <ravishktiwari@hotmail.com>
 ENV DEBIAN_FRONTEND noninteractive
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Adapted from: https://registry.hub.docker.com/u/jpetazzo/dind/dockerfile/
 # Let's start with some basic stuff.
@@ -26,9 +29,6 @@ RUN add-apt-repository \
     stable"
 # Install Docker from Docker Inc. repositories.
 RUN apt-get update -qq && apt-get install -qqy docker-ce=17.12.0~ce-0~ubuntu && rm -rf /var/lib/apt/lists/*
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
 
 # Install JDK 8 (latest edition)
 RUN apt-get -q update &&\
