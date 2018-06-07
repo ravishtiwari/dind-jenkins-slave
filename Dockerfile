@@ -49,6 +49,18 @@ RUN pip install awscli
 RUN add-apt-repository ppa:chris-lea/zeromq
 RUN apt-get update
 RUN apt-get install libzmq3-dbg libzmq3-dev libzmq3 -yq
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libkrb5-dev \
+    pkg-config \
+    libtool \
+    autoconf \
+    automake \
+    unzip
+
+RUN cd /tmp && git clone git://github.com/jedisct1/libsodium.git && cd libsodium && git checkout stable && ./autogen.sh && ./configure && make check && make install && ldconfig
+RUN cd /tmp && git clone --depth 1 git://github.com/zeromq/libzmq.git && cd libzmq && ./autogen.sh && ./configure && make && make install && ldconfig
+RUN rm /tmp/* -rf
 
 ADD wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
