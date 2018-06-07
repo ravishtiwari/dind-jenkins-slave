@@ -15,6 +15,7 @@ ENV LC_ALL en_US.UTF-8
 
 # Adapted from: https://registry.hub.docker.com/u/jpetazzo/dind/dockerfile/
 # Let's start with some basic stuff.
+
 RUN apt-get update -qq && apt-get install -qqy \
     apt-transport-https \
     ca-certificates \
@@ -24,11 +25,15 @@ RUN apt-get update -qq && apt-get install -qqy \
 
 RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 RUN add-apt-repository \
+    #"deb [arch=amd64] https://download.docker.com/linux/ubuntu artful stable"
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) \
     stable"
 # Install Docker from Docker Inc. repositories.
-RUN apt-get update -qq && apt-get install -qqy docker-ce=17.12.0~ce-0~ubuntu && rm -rf /var/lib/apt/lists/*
+RUN apt-cache madison docker-ce    
+RUN apt-get update  && apt-get install -y docker-ce=17.12.0~ce-0~ubuntu && rm -rf /var/lib/apt/lists/*
+RUN curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose
 
 # Install JDK 8 (latest edition)
 RUN apt-get -q update &&\
@@ -41,6 +46,9 @@ RUN apt-get update -q && \
     apt-get install -yq git \
     python-pip groff-base
 RUN pip install awscli
+RUN add-apt-repository ppa:chris-lea/zeromq
+RUN apt-get update
+RUN apt-get install libzmq3-dbg libzmq3-dev libzmq3 -yq
 
 ADD wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
