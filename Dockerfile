@@ -44,9 +44,9 @@ RUN apt-get -q update &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 RUN apt-get update -q && \
     apt-get install -yq git \
-    python-pip groff-base \
-    sudo -H pip install aws-sam-cli
-RUN pip install awscli
+    python-pip groff-base
+RUN pip install awscli \
+    pip install aws-sam-cli
 RUN add-apt-repository ppa:chris-lea/zeromq
 RUN apt-get update
 RUN apt-get install libzmq3-dbg libzmq3-dev libzmq3 -yq
