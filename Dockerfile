@@ -44,7 +44,8 @@ RUN apt-get -q update &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 RUN apt-get update -q && \
     apt-get install -yq git \
-    python-pip groff-base
+    python-pip groff-base \
+    sudo -H pip install aws-sam-cli
 RUN pip install awscli
 RUN add-apt-repository ppa:chris-lea/zeromq
 RUN apt-get update
